@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>jsspeccy</title>
+        <script src="lib/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="jsspeccy.js"></script>
 		<script src="roms.js"></script>
 		<script src="memory.js"></script>
@@ -22,7 +23,38 @@
 			}
 		</style>
 	</head>
-	<body onload="JSSpeccy('speccy', {'autostart': true})">
+	<body>
 		<div id="speccy"></div>
+		<script type="text/javascript" charset="utf-8">
+            var jsspeccy2;
+    		function startgame(file){
+    			$('#speccy').empty();
+    			//$('#game-controls').empty();
+                    // nes = new JSNES({
+                    // 'ui': $('#emulator').JSNESUI(file)
+                    // });
+                jsspeccy2 = JSSpeccy('speccy', {
+                    'autostart': true,
+                    'file': data[0].file
+                });
+    		}
+            $(function() {
+    			$.getJSON('games.json', function(data) {
+                    // nes = new JSNES({
+                    //  'ui': $('#emulator').JSNESUI(data[0].file)
+                    // });
+                    jsspeccy2 = JSSpeccy('speccy', {
+                        'autostart': true,
+                        'file': data[0].file
+                    });
+    				if (data.length > 1){					
+    					dropdown = $('<li class="dropdown" data-dropdown="dropdown"><a href="#" class="dropdown-toggle">Games</a><ul id="gameslist" class="dropdown-menu"></ul></li>').appendTo($("#games"));
+    					$.each(data, function(index, value){
+    						$('<li><a href="#" data-stuff="' + value.file + '" onclick="startgame(\'' + value.file + '\');return false;">' + value.name + '</a></li>').appendTo($("#gameslist"));
+    						});
+    				}
+    			});		
+    		});
+        </script>
 	</body>
 </html>

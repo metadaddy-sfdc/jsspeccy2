@@ -54,4 +54,35 @@ function JSSpeccy(container, opts) {
 	if (!('autostart' in opts) || opts['autostart']) {
 		controller.start();
 	}
+	if ('file' in opts) {
+        var self = this;
+        $.ajax({
+            url: escape(opts['file']),
+            xhr: function() {
+                var xhr = $.ajaxSettings.xhr();
+                if (typeof xhr.overrideMimeType !== 'undefined') {
+                    // Download as binary
+                    xhr.overrideMimeType('text/plain; charset=x-user-defined');
+                }
+                self.xhr = xhr;
+                return xhr;
+            },
+            complete: function(xhr, status) {
+                var i, data;
+                // if (IE) {
+                //     var charCodes = JSNESBinaryToArray(
+                //         xhr.responseBody
+                //     ).toArray();
+                //     data = String.fromCharCode.apply(
+                //         undefined, 
+                //         charCodes
+                //     );
+                // }
+                // else {
+                    data = xhr.responseText;
+                // }
+                controller.loadFile(opts['file'], data);
+            }
+        });
+	}
 }
