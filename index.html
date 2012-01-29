@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>jsspeccy</title>
-        <script src="lib/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="lib/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="jsspeccy.js"></script>
 		<script src="roms.js"></script>
 		<script src="memory.js"></script>
@@ -19,11 +19,13 @@
 				background-color: black;
 			}
 			#speccy {
-				margin: 75px auto;
+				margin: 50px auto;
 			}
 		</style>
 	</head>
 	<body>
+        <ul id="games">		
+        </ul>
 		<div id="speccy"></div>
 		<script type="text/javascript" charset="utf-8">
             var jsspeccy2;
@@ -35,7 +37,7 @@
                     // });
                 jsspeccy2 = JSSpeccy('speccy', {
                     'autostart': true,
-                    'file': data[0].file
+                    'file': file
                 });
     		}
             $(function() {
@@ -53,6 +55,10 @@
     						$('<li><a href="#" data-stuff="' + value.file + '" onclick="startgame(\'' + value.file + '\');return false;">' + value.name + '</a></li>').appendTo($("#gameslist"));
     						});
     				}
+    			}).error(function(){
+                    jsspeccy2 = JSSpeccy('speccy', {
+                        'autostart': true
+                    });    			    
     			});		
     		});
         </script>
