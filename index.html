@@ -31,10 +31,6 @@
             var jsspeccy2;
     		function startgame(file){
     			$('#speccy').empty();
-    			//$('#game-controls').empty();
-                    // nes = new JSNES({
-                    // 'ui': $('#emulator').JSNESUI(file)
-                    // });
                 jsspeccy2 = JSSpeccy('speccy', {
                     'autostart': true,
                     'file': file
@@ -42,9 +38,6 @@
     		}
             $(function() {
     			$.getJSON('games.json', function(data) {
-                    // nes = new JSNES({
-                    //  'ui': $('#emulator').JSNESUI(data[0].file)
-                    // });
                     jsspeccy2 = JSSpeccy('speccy', {
                         'autostart': true,
                         'file': data[0].file
